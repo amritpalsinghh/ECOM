@@ -1,0 +1,19 @@
+python --version
+virtualenv saulgadgets_3_12_3
+cd saulgadgets_3_12_3
+.\Scripts\activate
+pip install django
+django-admin startproject saulgadgets
+
+cd saulgadgets
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+mkdir apps/core
+<take time>
+python manage.py startapp core apps/core
+mkdir apps/core/templates
+<create a basic.html file under template and create a basic html page using "! tab" shortcut >
+<print amrit and form index page amrit2 using extends to base.html and block content>
+mkdir apps/store
+python manage.py startapp store apps/store
