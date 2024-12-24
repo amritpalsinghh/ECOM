@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1 class="title">{{ category.title }}</h1>
+    {% for product in product %}
+     <div class="column is-3" style="border:2px solid rgb(244, 188, 21);">
+            <div class="card"  style="border:2px solid rgb(31, 14, 214);">
+                <div class="card-content" style="border:2px solid rgb(34, 177, 50);">
+                    <div class="media" style="border:2px solid black;">
+                        <div class="media-content" style="border:2px solid rgb(253, 8, 29);">
+                                <p class="title ">{{ product.title }}</p>
+                                <p class="subtitle ">{{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a href="{% url 'product_detail' category.slug product.slug%}" class="card-footer-item">View</a>
+                </footer>
+            </div>
+        </div>
+        
+        {% empty %}
+            <p>No products available in this category.</p>
+        {% endfor %}
+{% endblock %} 
