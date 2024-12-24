@@ -1,0 +1,63 @@
+PS D:\GIT\ECOM> .\saulgadgets_3_12_5\Scripts\activate 
+(saulgadgets_3_12_5) PS D:\GIT\ECOM> ls
+
+
+    Directory: D:\GIT\ECOM
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12/24/2024   3:29 AM                saulgadgets_3_12_5
+-a----        12/24/2024   3:31 AM            606 PrimaryCmds.txt
+-a----        12/22/2024   4:59 PM             22 README.md
+-a----        12/24/2024   3:42 AM              0 Terminal.txt
+-a----        12/24/2024   3:31 AM            165 ToDoList.txt
+
+
+(saulgadgets_3_12_5) PS D:\GIT\ECOM> cd .\saulgadgets_3_12_5
+(saulgadgets_3_12_5) PS D:\GIT\ECOM\saulgadgets_3_12_5> ls
+
+
+    Directory: D:\GIT\ECOM\saulgadgets_3_12_5
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12/22/2024   5:03 PM                Lib
+d-----        12/22/2024   5:08 PM                saulgadgets
+d-----        12/22/2024   5:05 PM                Scripts
+-a----        12/24/2024   3:25 AM             86 .gitignore
+-a----        12/22/2024   5:03 PM            298 pyvenv.cfg
+
+
+(saulgadgets_3_12_5) PS D:\GIT\ECOM\saulgadgets_3_12_5> cd .\saulgadgets
+(saulgadgets_3_12_5) PS D:\GIT\ECOM\saulgadgets_3_12_5\saulgadgets> ls
+
+
+    Directory: D:\GIT\ECOM\saulgadgets_3_12_5\saulgadgets
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12/22/2024   5:09 PM                apps
+d-----        12/22/2024   5:05 PM                saulgadgets
+-a----        12/22/2024   5:08 PM         131072 db.sqlite3
+-a----        12/22/2024   5:05 PM            689 manage.py
+
+
+(saulgadgets_3_12_5) PS D:\GIT\ECOM\saulgadgets_3_12_5\saulgadgets> python .\manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 24, 2024 - 03:44:09
+Django version 5.1.4, using settings 'saulgadgets.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+[24/Dec/2024 03:44:17] "GET /admin/store/product/ HTTP/1.1" 302 0
+[24/Dec/2024 03:44:17] "GET /admin/login/?next=/admin/store/product/ HTTP/1.1" 200 4188
+[24/Dec/2024 03:44:18] "GET /static/admin/css/login.css HTTP/1.1" 200 951
+[24/Dec/2024 03:44:26] "GET / HTTP/1.1" 200 12068
+[24/Dec/2024 03:44:27] "POST /admin/login/?next=/admin/store/product/ HTTP/1.1" 200 4353
+[24/Dec/2024 03:44:30] "GET / HTTP/1.1" 200 12068

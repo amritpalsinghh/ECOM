@@ -1,2 +1,2 @@
 1. Run Primary Commands form PrimaryCmd.txt documents
-2. Clone the required progress up to one step before the cart add except ordering of product based upon date
+2. Now we done : Clone the required progress up to one step before the cart add except ordering of product based upon date
