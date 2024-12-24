@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render,get_object_or_404
 from apps.store.models import Product , Category
 # Create your views here.
@@ -25,3 +26,8 @@ def category_detail(request,slug):
         'product': product
     }
     return render(request, 'category_detail.html', context)
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> e62ef8e5ce117fa5391810881def63497123de2e

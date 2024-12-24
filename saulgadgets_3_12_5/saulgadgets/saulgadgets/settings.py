@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+<<<<<<< HEAD
 import os
+=======
+
+>>>>>>> e62ef8e5ce117fa5391810881def63497123de2e
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,8 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'apps.core',
     'apps.store',
+=======
+>>>>>>> e62ef8e5ce117fa5391810881def63497123de2e
 ]
 
 MIDDLEWARE = [
@@ -56,7 +63,11 @@ ROOT_URLCONF = 'saulgadgets.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [os.path.join(BASE_DIR,'apps/core/templates'),os.path.join(BASE_DIR,'apps/store/templates')],
+=======
+        'DIRS': [],
+>>>>>>> e62ef8e5ce117fa5391810881def63497123de2e
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,7 +75,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+<<<<<<< HEAD
                 'apps.store.context_processors.menu_categories',
+=======
+>>>>>>> e62ef8e5ce117fa5391810881def63497123de2e
             ],
         },
     },

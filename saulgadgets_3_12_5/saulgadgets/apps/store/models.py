@@ -1,5 +1,6 @@
 from django.db import models
 
+<<<<<<< HEAD
 class Category(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
@@ -24,3 +25,6 @@ class Product(models.Model):
     def _str__(self):
         return self.title
     
+=======
+# Create your models here.
+>>>>>>> e62ef8e5ce117fa5391810881def63497123de2e
