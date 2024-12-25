@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# cart
+
+SESSION_COOKIE_AGE = 86400
+CART_SESSION_ID = 'cart'
 
 # Application definition
 
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.cart',
     'apps.core',
     'apps.store',
 ]
@@ -56,7 +61,7 @@ ROOT_URLCONF = 'saulgadgets.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'apps/core/templates'),os.path.join(BASE_DIR,'apps/store/templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,8 +83,12 @@ WSGI_APPLICATION = 'saulgadgets.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ecom_db',
+        'USER': 'root',
+        'PASSWORD':'cxz',
+        'HOST':'127.0.0.1',
+        'PORT':'3307'
     }
 }
 

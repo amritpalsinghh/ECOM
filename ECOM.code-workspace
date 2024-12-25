@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "ECOM",
+			"path": "."
+		}
+	],
+	"settings": {
+		"vs-code-prettier-eslint.prettierLast": false
+	}
+}

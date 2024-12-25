@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.core.views import index, contact, about
 from apps.store.views import product_detail, category_detail
+from apps.cart.views import cart_detail
 # BUG 
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'), 
+    path('cart_detail/', cart_detail, name='cart_detail'),
     path('<slug:category_slug>/<slug:slug>/', product_detail, name='product_detail'),
     path('<slug:slug>/', category_detail, name='category_detail'),
 ]
