@@ -19,12 +19,11 @@ class Product(models.Model):
     description = models.TextField(blank=True,null=True)
     price = models.FloatField()
     date_added = models.DateTimeField(auto_now_add=True)
-    is_featured = models.BooleanField(default= False)
-    description2 = models.TextField(blank=True,null=True)
+    is_featured = models.BooleanField(default= False) 
      
-    class Meta:
+    class Meta: 
         ordering = ('-date_added',)    
         
-    def _str__(self):
+    def __str__(self):
         return self.title
     

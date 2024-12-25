@@ -3,3 +3,4 @@
 *.pyc
 /Scripts/
 *.sqlite*
+00*.py
