@@ -42,15 +42,16 @@
                     credentials: 'same-origin',
                     body: JSON.stringify(data)
                 })
-                .then((resposne) => {
-                    if ( resposne.error) {
+                .then((response) => {
+                    if ( response.error) {
                         console.log("Error 1");
-                        throw resposne;
+                        throw response;
                     }
-                    return resposne;
+                    console.log(response)
+                    return response;
                 })
-                .then((resposne) => {
-                    if (resposne) {
+                .then((response) => {
+                    if (response) {
                         console.log("added to cart");
                     }
                 })
