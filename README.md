@@ -24,4 +24,9 @@ python .\manage.py runserver
 Whenever resart or rework just do 
 .\saulgadgets_3_12_5\Scripts\activate
 cd .\saulgadgets_3_12_5\saulgadgets
+python .\manage.py runserver
+
+Very Important points
+1. Xamp server should be start for db
+2. Internet should be connected 
 
