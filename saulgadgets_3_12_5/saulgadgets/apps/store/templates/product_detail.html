@@ -1,16 +1,65 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% csrf_token %}
 {% block content %}
+<div id="productapp">
     <h1 class="title">{{ product.title }}</h1>
     <h1 class="subtitle">{{ product.price }}</h1>
     {% if product.description %}
         <h1 class="description">{{ product.description }}</h1>
     {% endif %} 
+    <button @click="addToCart({{ product.id }})">Add to cart</button>
+</div>
 {% endblock %} 
 
 {% block scripts %}
 <script>
-    console.log('Amrit Script')
+    var productapp= new Vue({
+        el: '#productapp',
+        delimeters: ['[[',']]'],
+        data(){ //Any properties defined in data() can be dynamically rendered in the template or manipulated during runtime.
+            return {
+
+            }
+        },
+        mounted(){ //This is a lifecycle hook in Vue.js that is called after the instance is mounted onto the DOM.
+            console.log('Amrit Mounted')
+        },
+        methods:{ 
+            addToCart(product_id){
+                console.log("addoCart Method")
+                console.log( "Product_id: ",product_id)
+
+                var data = {'product_id':product_id, 'update':false,'quantity': 1}
+
+                console.log(data)
+                fetch('/api/api_add_to_cart/', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                })
+                .then((resposne) => {
+                    if ( resposne.error) {
+                        console.log("Error 1");
+                        throw resposne;
+                    }
+                    return resposne;
+                })
+                .then((resposne) => {
+                    if (resposne) {
+                        console.log("added to cart");
+                    }
+                })
+                .catch(function (error){
+                    console.log('Error 2')
+                    console.log(error)
+                })
+            }
+        }
+    });
 </script>
 {% endblock %}
