@@ -4,9 +4,9 @@
 {% block content %}
 <h1>amritCart</h1>
     {% if cart %}
-        <!-- {% for item in cart %} -->
+        {% for item in cart %}
             <p> {{ item }}</p>
-        <!-- {% endfor %} -->
+        {% endfor %}
     {% else %}
         <p>Your cart is empty!
     {% endif %}

@@ -20,6 +20,7 @@ from apps.core.views import index, contact, about
 from apps.store.views import product_detail, category_detail
 from apps.cart.views import cart_detail
 from apps.store.api import api_add_to_cart
+from django.conf import settings
 # BUG 
 urlpatterns = [
     path('', index, name='index'),
@@ -37,3 +38,10 @@ urlpatterns = [
     path('<slug:category_slug>/<slug:slug>/', product_detail, name='product_detail'),
     path('<slug:slug>/', category_detail, name='category_detail'),
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

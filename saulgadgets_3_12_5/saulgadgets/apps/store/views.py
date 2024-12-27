@@ -1,6 +1,8 @@
 from apps.core.views import debug_function_name
 from django.shortcuts import render,get_object_or_404
 from apps.store.models import Product , Category
+import logging
+logger = logging.getLogger('apps.store')
 # Create your views here.
 # TODO ddfd
 # BUG

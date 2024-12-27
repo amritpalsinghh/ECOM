@@ -1,6 +1,8 @@
 from django.conf import settings
 from apps.store.models import Product
 from apps.core.views import debug_function_name
+import logging
+logger = logging.getLogger('apps.cart')
 class Cart(object):
     def __init__(self,request):
         debug_function_name()
@@ -30,7 +32,7 @@ class Cart(object):
         for item in self.cart.values():
             print("oooooo")
             print(item)
-            item['total_price'] = int(item['prince'])* int(item['quantity'])
+            item['total_price'] = int(item['price'])* int(item['quantity'])
             yield item    
         
             
@@ -57,5 +59,6 @@ class Cart(object):
     
     def save(self):
         debug_function_name()
+        logger.debug("Request method: %s", "AMRIT")
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True

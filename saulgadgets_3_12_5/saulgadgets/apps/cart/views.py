@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .cart import Cart
 from apps.core.views import debug_function_name
+import logging
+logger = logging.getLogger('apps.cart')
 # Create your views here.
 def cart_detail(request):
     debug_function_name()

@@ -2,6 +2,8 @@ from django.shortcuts import render
 import inspect
 import os
 from apps.store.models import Product
+import logging
+logger = logging.getLogger('apps.core')
 # Create your views here.
 def debug_function_name():
      # Define ANSI color codes
@@ -43,7 +45,10 @@ def debug_function_name():
     
 def index(request):
     debug_function_name()
+    logger.debug("Request method: %s", "AMRIT")
+    logger.debug("Request method: %s", request.method)
     products = Product.objects.filter(is_featured=True)
+    logger.debug("Request method: %s", "AMRIT")
     context = {
         'products': products
     }
