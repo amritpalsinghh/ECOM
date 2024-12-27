@@ -2,12 +2,73 @@
 {% load static %}
 
 {% block content %}
+<div id="cartProductDetail">
 <h1>amritCart</h1>
     {% if cart %}
-        {% for item in cart %}
-            <p> {{ item }}</p>
+        {% for item in cart %}     
+            <!-- <p> {{ item }}</p> -->
+              <!-- item = {'quantity': 2, 'price': 0, 'id': '4', 'product': <Product: Laptop>, 'total_price': 0} 
+                          {'quantity': 1, 'price': 0, 'id': '3', 'product': <Product: Mouse>, 'total_price': 0}  -->
+            {% with product=item.product %} 
+                <p>Product - {{ product.title }}</p>
+                <button @click="removeProduct({{ product.id }})">Remove form Cart</button>
+            {% endwith %}
         {% endfor %}
     {% else %}
         <p>Your cart is empty!
     {% endif %}
+</div>
 {% endblock %} 
+
+{% block scripts %}
+<script>
+    var productapp= new Vue({
+        el: '#cartProductDetail',
+        delimeters: ['[[',']]'],
+        data(){ //Any properties defined in data() can be dynamically rendered in the template or manipulated during runtime.
+            return {
+
+            }
+        },
+        mounted(){ //This is a lifecycle hook in Vue.js that is called after the instance is mounted onto the DOM.
+            console.log('Amrit Mounted')
+        },
+        methods:{ 
+            removeProduct(product_id){
+                console.log("removeProduct Method")
+                console.log( "Product_id: ",product_id)
+                
+                var data = {'product_id':product_id}
+
+                console.log(data)
+                fetch('/api/api_remove_from_cart/', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                })
+                .then((response) => {
+                    if ( response.error) {
+                        console.log("Error 1");
+                        throw response;
+                    }
+                    console.log(response)
+                    return response;
+                })
+                .then((response) => {
+                    if (response) {
+                        console.log("Removed from the cart");
+                    }
+                })
+                .catch(function (error){
+                    console.log('Error 2')
+                    console.log(error)
+                })
+            }
+        }
+    });
+</script>
+{% endblock %}

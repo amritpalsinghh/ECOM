@@ -31,3 +31,17 @@ def api_add_to_cart(request):
         
     return JsonResponse(jsonresponse)
     
+def api_remove_form_cart(request):
+    debug_function_name()
+    data = json.loads(request.body)
+    
+    jsonresponse = {'success': True}
+    #NOTE The data retrieved from request.POST is always a string.
+    product_id = str(data['product_id'])
+   
+    
+    logger.debug("Request method: %s", data) 
+    cart = Cart(request)
+    logger.debug("Request method: %s", str(cart) )
+    cart.remove(product_id)
+    return JsonResponse(jsonresponse)
