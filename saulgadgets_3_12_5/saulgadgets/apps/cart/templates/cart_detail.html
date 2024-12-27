@@ -5,15 +5,34 @@
 <div id="cartProductDetail">
 <h1>amritCart</h1>
     {% if cart %}
-        {% for item in cart %}     
-            <!-- <p> {{ item }}</p> -->
-              <!-- item = {'quantity': 2, 'price': 0, 'id': '4', 'product': <Product: Laptop>, 'total_price': 0} 
-                          {'quantity': 1, 'price': 0, 'id': '3', 'product': <Product: Mouse>, 'total_price': 0}  -->
-            {% with product=item.product %} 
-                <p>Product - {{ product.title }}</p>
-                <button @click="removeProduct({{ product.id }})">Remove form Cart</button>
-            {% endwith %}
-        {% endfor %}
+        <div class="table">
+            <table>
+            <thead>
+                <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}     
+                <!-- <p> {{ item }}</p> -->
+                  <!-- item = {'quantity': 2, 'price': 0, 'id': '4', 'product': <Product: Laptop>, 'total_price': 0} 
+                              {'quantity': 1, 'price': 0, 'id': '3', 'product': <Product: Mouse>, 'total_price': 0}  -->
+                {% with product=item.product %} 
+                <tr>
+                    <td>{{ product.title }}</td>
+                    <td>{{ item.quantity }} <button @click="incrementQuantity({{ product.id }},{{ item.quantity }})">+</button></td>
+                    <td>{{ item.total_price }}</td>
+                    <td>  <button @click="removeProduct({{ product.id }})">Remove form Cart</button></td>
+                </tr>    
+              
+                {% endwith %}
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+       
     {% else %}
         <p>Your cart is empty!
     {% endif %}
@@ -31,9 +50,37 @@
             }
         },
         mounted(){ //This is a lifecycle hook in Vue.js that is called after the instance is mounted onto the DOM.
-            console.log('Amrit Mounted')
+            console.log('cartProductDetail Mounted')
         },
         methods:{ 
+            incrementQuantity(product_id,quantity){
+                console.log("incrementQuantity Method")
+                console.log( "Product_id: ",product_id)
+
+                var data = {
+                    'product_id':product_id, 
+                    'update':false,
+                    'quantity': parseInt(quantity) + 1
+                }
+
+                fetch('/api/api_add_to_cart/', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                })
+                .then((response) => {
+                    if ( response.error) {
+                        console.log("Error 1");
+                        throw response;
+                    }
+                    console.log(response)
+                    return response;
+                })
+            },
             removeProduct(product_id){
                 console.log("removeProduct Method")
                 console.log( "Product_id: ",product_id)
