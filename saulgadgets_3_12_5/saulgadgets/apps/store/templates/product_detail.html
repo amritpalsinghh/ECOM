@@ -19,11 +19,11 @@
         delimeters: ['[[',']]'],
         data(){ //Any properties defined in data() can be dynamically rendered in the template or manipulated during runtime.
             return {
-
+                
             }
         },
         mounted(){ //This is a lifecycle hook in Vue.js that is called after the instance is mounted onto the DOM.
-            console.log('Amrit Mounted')
+            console.log('Productapp Mounted')
         },
         methods:{ 
             addToCart(product_id){
@@ -41,7 +41,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-CSRFToken': '{{ csrf_token }}'
                     },
                     credentials: 'same-origin',
                     body: JSON.stringify(data)

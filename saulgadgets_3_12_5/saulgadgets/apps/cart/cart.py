@@ -46,13 +46,18 @@ class Cart(object):
         debug_function_name()
         product_id = str(product.id)
         price = product.price
-        
+
+        print('Product_id:', product_id)
+
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity':0,'price':0,'id': product_id}
+            print("1")
+            self.cart[product_id] = {'quantity':1,'price':price,'id': product_id}
             
         if update_quantity:
+            print("2")
             self.cart[product_id]['quantity'] = quantity
         else:
+            print("3")
             self.cart[product_id]['quantity'] = self.cart[product_id]['quantity'] + 1
             
         self.save()
@@ -65,5 +70,7 @@ class Cart(object):
     def save(self):
         debug_function_name()
         logger.debug("Request method: %s", "AMRIT")
+        print("15")
+        print(self.cart)
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True

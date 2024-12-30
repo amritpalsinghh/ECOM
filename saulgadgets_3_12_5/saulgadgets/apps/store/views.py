@@ -15,8 +15,8 @@ def product_detail(request, category_slug, slug):
     product = get_object_or_404(Product, slug=slug)
     
     print(category_slug)
-    print(slug)
-    print(product.price)
+    print(slug) 
+    print("Product Detail: "+str(product.id)+", "+ product.title+", "+ product.description+", "+str(product.price))
     
     print("amrit")
     context = {

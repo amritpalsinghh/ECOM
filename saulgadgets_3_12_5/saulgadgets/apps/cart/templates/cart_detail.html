@@ -3,34 +3,46 @@
 
 {% block content %}
 <div id="cartProductDetail">
-<h1>amritCart</h1>
+        <h1 class="title">Cart</h1>
+        <p>{{ cart.size }}</p>
     {% if cart %}
         <div class="table">
             <table>
             <thead>
-                <tr>
+                            
                 <th>Product</th>
-                <th>Quantity</th>
                 <th>Price</th>
-            </tr>
+                <th>Quantity</th>
+                            <th>Total Price</th>
             </thead>
             <tbody>
-                {% for item in cart %}     
-                <!-- <p> {{ item }}</p> -->
-                  <!-- item = {'quantity': 2, 'price': 0, 'id': '4', 'product': <Product: Laptop>, 'total_price': 0} 
-                              {'quantity': 1, 'price': 0, 'id': '3', 'product': <Product: Mouse>, 'total_price': 0}  -->
+                    <tr v-for="product in products">
+                    <td>[[ product.title ]]</td>
+                    <td>[[ product.price ]]</td>
+                    <td>[[ product.quantity ]] 
+                        <button @click="incrementQuantity( product.id , product.quantity )">+</button>
+                        <button @click="decrementQuantity( product.id , product.quantity )"> - </button></td>
+                        <td>[[ product.price * product.quantity ]]</td>
+                    <td><button @click="removeProduct( product.id )">Remove form Cart</button></td>
+                 </tr>
+                <!--{% for item in cart %}     
+                 <p> {{ item }}</p>  
+                   item = {'quantity': 2, 'price': 0, 'id': '4', 'product': <Product: Laptop>, 'total_price': 0} 
+                              {'quantity': 1, 'price': 0, 'id': '3', 'product': <Product: Mouse>, 'total_price': 0}  
                 {% with product=item.product %} 
                 <tr>
                     <td>{{ product.title }}</td>
                     <td>{{ item.quantity }} <button @click="incrementQuantity({{ product.id }},{{ item.quantity }})">+</button></td>
                     <td>{{ item.total_price }}</td>
-                    <td>  <button @click="removeProduct({{ product.id }})">Remove form Cart</button></td>
-                </tr>    
+                    <td>  <button @click="removeProduct( product.id)">Remove form Cart</button></td>
+                </tr>     
               
                 {% endwith %}
-            {% endfor %}
+            {% endfor %}-->
             </tbody>
         </table>
+        <!-- <input type="hidden" name="csrfmiddlewaretoken" value="your_csrf_token_here"> -->
+        <!-- <p> {{ productsstring }} -->
         </div>
        
     {% else %}
@@ -43,10 +55,10 @@
 <script>
     var productapp= new Vue({
         el: '#cartProductDetail',
-        delimeters: ['[[',']]'],
-        data(){ //Any properties defined in data() can be dynamically rendered in the template or manipulated during runtime.
+        delimiters: ['[[',']]'],
+        data() { //Any properties defined in data() can be dynamically rendered in the template or manipulated during runtime.
             return {
-
+                products: JSON.parse('{{ productsstring| safe }}')
             }
         },
         mounted(){ //This is a lifecycle hook in Vue.js that is called after the instance is mounted onto the DOM.
@@ -76,13 +88,61 @@
                     if ( response.error) {
                         console.log("Error 1");
                         throw response;
+                        
                     }
                     console.log(response)
-                    return response;
+                    for (var i=0; this.products.length; i++){
+                        var product = this.products[i]
+                        console.log(this.products[i])
+                        if (product.id === product_id){
+                            this.products[i].quantity = parseInt(this.products[i].quantity)+1
+                            this.products[i].total_price = parseInt(this.products[i].quantity) * parseInt(this.products[i].price);
+                        }
+                    }    
+                })
+            },
+            decrementQuantity(product_id,quantity){
+                console.log("decrimentQuantity Method")
+                console.log( "Product_id: ",product_id)
+
+                var data = {
+                    'product_id':product_id, 
+                    'update':true,
+                    'quantity': parseInt(quantity) - 1
+                }
+
+                fetch('/api/api_add_to_cart/', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                })
+                .then((response) => {
+                    if ( response.error) {
+                        console.log("Error 1");
+                        throw response;
+                        
+                    }
+                    console.log(response)
+                    for (var i=0; this.products.length; i++){
+                        var product = this.products[i]
+                        console.log( product)
+                        if (product.id === product_id){
+                            if  (this.products[i].quantity > 1){
+                                this.products[i].quantity = parseInt(this.products[i].quantity)-1
+                                this.products[i].total_price = parseInt(this.products[i].quantity) * parseInt(this.products[i].price);
+                            }
+                        }
+                    }   
                 })
             },
             removeProduct(product_id){
+
                 console.log("removeProduct Method")
+                console.log('{{ csrf_token }}')
                 console.log( "Product_id: ",product_id)
                 
                 var data = {'product_id':product_id}
@@ -109,6 +169,7 @@
                     if (response) {
                         console.log("Removed from the cart");
                     }
+                    this.products = this.products.filter(product => product.id !== product_id)
                 })
                 .catch(function (error){
                     console.log('Error 2')

@@ -12,7 +12,8 @@ from apps.core.views import debug_function_name
 def api_add_to_cart(request):
     debug_function_name()
     data = json.loads(request.body)
-    
+    print("pppppppppppppppppppppppppp")
+    print(data)
     jsonresponse = {'success': True}
     #NOTE The data retrieved from request.POST is always a string.
     product_id = data['product_id']
